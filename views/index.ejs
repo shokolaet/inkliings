@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Handshake</title>
     <script type="text/javascript" src="http://platform.linkedin.com/in.js">
-        api_key:   LINKEDIN_KEY
+        api_key:   <%= LINKEDIN_KEY %>
         onLoad:    linkedinOnLoad
         authorize: true
     </script>
     <script type="text/javascript" src="/static/linkedin.js"></script>
 </head>
 <body>
-<%= username %>
-<img src="<%= profile_picture %>">
+<%= user.username %>
+<img src="<%= user.profile_picture %>">
 </body>
 </html>
