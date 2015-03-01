@@ -159,7 +159,7 @@ app.get("/capone", function(req, response){
 		var data = JSON.stringify(res.body[0]);
 		//console.log(JSON.stringify(res.body[0]));
 		//console.log(data);
-		res.send(data);
+		response.send(data);
 	});
 });
 
