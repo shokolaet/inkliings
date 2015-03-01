@@ -6,6 +6,7 @@
     "express": "^4.12.0",
     "http": "0.0.0",
     "instagram-node": "^0.5.6",
+    "node-linkedin": "^0.3.6",
     "path": "*",
     "twitter": "^1.2.1"
   }

@@ -2,7 +2,8 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Handshake</title>
+    <title>Inkliings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://platform.linkedin.com/in.js">
         api_key:   <%= LINKEDIN_KEY %>
         onLoad:    linkedinOnLoad
@@ -11,7 +12,26 @@
     <script type="text/javascript" src="/static/linkedin.js"></script>
 </head>
 <body>
-<%= user.username %>
-<img src="<%= user.profile_picture %>">
+<h1>LinkedIn</h1>
+<span id="linkedin-name"></span><br>
+<span id="linkedin-headline"></span><br>
+
+<h1>Instagram</h1>
+<% if (instagramUserError) { %>
+No Instagram account found.
+<% } else { %>
+<%= instagramUser.username %>
+<img src="<%= instagramUser.profile_picture %>">
+
+<% if (instagramMediaError) { %>
+This user's Instagram is private.
+<% } else { %>
+<p>
+    <% for (var i = 0; i < instagramNumPhotos; i++) { %>
+    <img src="<%= instagramPhotos[i]['images']['thumbnail']['url'] %>">
+    <% } %>
+</p>
+<% } %>
+<% } %>
 </body>
 </html>
