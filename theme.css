@@ -1,0 +1,12 @@
+html, body{
+	font: 16px 'Arial', sans-serif;
+}
+
+#logo{
+	background-image: url('/img/logo.png');
+}
+
+#navigation {
+   float: right;
+   padding-top: 15px;
+}
