@@ -32,7 +32,14 @@
                         }
                     });
                 }
+            });
 
+            $("#atm-search").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $.getJSON("/capone", function (result) {
+                        $('#atm-info .panel-body').append(result['name'] + '<br>' + result['address']['street name'] + ' ' + result['address']['city'] + ', ' + result['address']['state'] + ' ' + result['address']['zip']);
+                    });
+                }
             });
         });
     </script>
@@ -103,6 +110,20 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+
+
+    <div id="atm-info" class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Conference tip! Find nearest ATM</h3>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <input id="atm-search" type="text" class="form-control" placeholder="Enter Zipcode" aria-describedby="basic-addon1">
+                <br>
+            </div>
+
         </div>
     </div>
 
