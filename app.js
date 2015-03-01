@@ -115,6 +115,18 @@ app.get("/tweet", function (req, res) {
     });
 });
 
+var capitalOneClient = require('superagent');
+
+app.get("/capone", function(req, response){
+	capitalOneClient.get('http://api.reimaginebanking.com/atms?key=CUSTe4d21e20f0e28d1c42ec5a60525c5f31').end(function(res){
+	
+		var data = JSON.stringify(res.body[0]);
+		//console.log(JSON.stringify(res.body[0]));
+		//console.log(data);
+		response.send(data);
+	});
+});
+
 app.get("/", function (req, res) {
    res.render('home.ejs');
 });
