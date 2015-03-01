@@ -31,6 +31,7 @@ app.get("/instagram", function (req, res) {
         instagramUserError: false,
         instagramMediaError: false
     };
+
     // TODO: change username
     instagram.user_search('taylorswift', function (err, users, remaining, limit) {
         if (err || users.length == 0) {
@@ -65,7 +66,6 @@ app.get("/instagram", function (req, res) {
 //    app.get('/oauth/linkedin', function(req, res) {
 //        // This will ask for permisssions etc and redirect to callback url.
 //        Linkedin.auth.authorize(res, ['r_basicprofile']);
-//        return res.redirect('http://localhost:1337/oauth/linkedin/callback');
 //    });
 //
 //    app.get('/oauth/linkedin/callback', function(req, res) {

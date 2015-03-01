@@ -15,7 +15,7 @@ var loggedInCallback = function () {
     console.log(IN.User);
     // TODO: replace ID dynamically
     // TODO: DOESN'T WORK!
-    IN.API.Raw("/people-search?keywords=orange%20shake&sort=connections?format=json").method("GET").body().result(function (person) {
+    IN.API.Raw().url("/people-search?format=json").method("GET").body().result(function (person) {
         console.log(person);
         $('#linkedin-name').text(person.firstName + " " + person.lastName);
         $('#linkedin-headline').text(person.headline);
