@@ -1,61 +1,111 @@
 <html>
 <head>
     <title>inkliings: start a handshake! </title>
-	<link rel="stylesheet" href = "/static/theme.css" type = "text/css">
-	<link rel = "stylesheet" href = "/css/bootstrap.min.css" type = "text/css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script>
-	$(document).ready(function(){
-		$("#tfbutton2").click(function(){
-			$.getJSON("/tweet", function(result){
-					$("#socialMedia").append(JSON.stringify(result.tweets[0].text) + '<br>' + JSON.stringify(result.tweets[1].text) + '<br>' + JSON.stringify(result.tweets[2].text));
-			});
-		
-			$.getJSON("/insta", function(results){
-				$("#socialMedia2").append(JSON.stringify(results.instagramUser.username));
-			});
-			
-		});
-	});
-	
-	</script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/theme.css" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".person-search").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $('#person-card').show();
+
+                    $('#person-search-container')
+                            .animate({height: 10, opacity: 0}, 'slow', function () {
+                                $(this).remove();
+                            });
+
+                    $('#person-search-normal').show();
+
+                    $.getJSON("/tweet", function (result) {
+                        $("#person-name").text(result.tweets[0]['user']['name']);
+                        for (var i = 0; i < 3; i++) {
+                            $("#twitter .list-group").append('<li class="list-group-item list-group-item-info"><span class="tweet">' + result.tweets[i].text + '</span></li>');
+                        }
+                    });
+
+                    $.getJSON("/insta", function (results) {
+                        for (var i = 0; i < results.instagramNumPhotos; i++) {
+                            $("#instagram-list").append('<div class="col-xs-4 col-md-2"><a href="' + results.instagramPhotos[i]['images']['standard_resolution']['url'] + '"><img src="' + results.instagramPhotos[i]['images']['thumbnail']['url'] + '" class="insta-photo img-thumbnail img-responsive"></a></div>');
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
 </head>
 <body>
-	<div class = "container">
-		<header>
-			<div>
-				<div id = "logo"> 
-						<img src = "/static/logo.png"> 
-							<div id = "nav">
-							<a href = " "> Home </a>
-							<a href = "/about"> About </a>
-							</div>							
-				</div>	
-				
-			</div>	
-				<div id = "tag">
-					Start a handshake 
-				</div>
-		</header>
-	
-		<div class = "container-fluid">
-		<div class = "row">
-			<div class = "col-md-4 col-md-offset-4">
-				<input type="text" class="rounded" />
-				<input type="button" value=">" id="tfbutton2" onclick = "test();">
-			</div>
-		</div>
-		</div>
-		<div id = "socialMedia">
-		</div>
-		<br>
-		<div id = "socialMedia2">
-		</div>
-	
-		
-	</div>
+<div class="container">
+    <header class="text-center">
+        <div>
+            <div id="logo">
+                <img src="/static/logo.png">
+            </div>
+
+        </div>
+        <div id="tag">
+            Start a handshake
+        </div>
+    </header>
+
+
+    <div id="person-search-container" class="jumbotron text-center">
+        <h1>The beginning of a meaningful conversation with</h1>
+        <div class="input-group input-group-lg col-md-4 center">
+            <input type="text" class="person-search form-control" placeholder="Search a snapshot"
+                   aria-describedby="sizing-addon1">
+        </div>
+        <h1>begins here</h1>
+    </div>
+
+    <div id="person-search-normal">
+        <div class="input-group input-group-lg col-md-4 center">
+        <input type="text" class="person-search form-control" placeholder="Search a snapshot"
+               aria-describedby="sizing-addon1">
+        </div>
+    </div>
+
+    <br>
+
+    <div id="person-card" class="panel panel-success">
+        <div class="panel-heading">
+            <h3 id="person-name" class="panel-title"></h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img src="/static/taylor-swift-headshot.jpg" alt="Taylor Swift" class="img-circle media-object" width="150px" height="150px">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">Taylor Swift</h4>
+                    Entertainer at Big Machine Records
+                </div>
+            </div>
+
+            <br>
+            
+            <div id="twitter">
+                <ul class="list-group">
+
+                </ul>
+            </div>
+            <div id="instagram">
+                <div class="row">
+                    <div id="instagram-list">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
